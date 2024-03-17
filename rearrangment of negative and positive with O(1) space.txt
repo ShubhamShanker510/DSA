@@ -1,0 +1,29 @@
+void reaarangenegativeandpoisitive(int arr[], int n) {
+    int i = -1;
+    int j = n;
+
+    // Arranging all positive on the left side and all negative on the right side
+    while (i < j) {
+        while (i <= n - 1 && arr[i] > 0) {
+            i++;
+        }
+
+        while (j >= 0 && arr[j] < 0) {
+            j--;
+        }
+
+        if (i < j) {
+            swap(arr[i], arr[j]);
+        }
+    }
+
+    if (i == n || i == n - 1) return;
+
+    // Rearranging in the pattern of negative and positive
+    int k = 0;
+    while (k < n && i < n) {
+        swap(arr[k], arr[i]);
+        i++;
+        k += 2;
+    }
+}
