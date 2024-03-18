@@ -1,0 +1,31 @@
+void traversal(TreeNode* root,vector<TreeNode*>& data){
+        if(root==NULL) return;
+
+        traversal(root->left,data);
+        data.push_back(root);
+        traversal(root->right,data);
+    }
+
+TreeNode* increasingBST(TreeNode* root) {
+        vector<TreeNode*> data;
+        traversal(root,data);
+
+        TreeNode* ansroot=NULL;
+        TreeNode* previousNode=NULL;
+
+        for(int i=0;i<data.size();i++){
+            if(ansroot==NULL){
+               ansroot=data[i];
+               }
+
+               data[i]->left=NULL;
+               data[i]->right=NULL;
+
+               if(previousNode!=NULL){
+                previousNode->right=data[i];
+               }
+
+               previousNode=data[i];
+        }
+        return ansroot;
+}
