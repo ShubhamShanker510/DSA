@@ -1,0 +1,31 @@
+ void traversal(TreeNode* root,vector<TreeNode*> &leafnodes){
+        if(root==NULL) return;
+
+        traversal(root->left,leafnodes);
+        if(root->left==NULL && root->right==NULL){
+            leafnodes.push_back(root);
+        }
+        traversal(root->right,leafnodes);
+
+
+    }
+
+
+ bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        vector<TreeNode*> leafnodes1;
+        vector<TreeNode*> leafnodes2;
+
+        traversal(root1,leafnodes1);
+        traversal(root2,leafnodes2);
+
+        if(leafnodes1.size()!=leafnodes2.size()){
+                return false;
+        }
+        for(int i=0;i<leafnodes1.size();i++){
+            if(leafnodes1[i]->val!=leafnodes2[i]->val){
+                return false;
+            }
+        }
+
+        return true;
+}
