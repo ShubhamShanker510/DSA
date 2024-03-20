@@ -1,0 +1,17 @@
+string isSubset(int a1[], int a2[], int n, int m) {
+  unordered_map<int,int> counter;
+  
+  for(int i=0;i<n;i++){
+      counter[a1[i]]++;
+  }
+  
+  for(int j=0;j<m;j++){
+      if(counter.find(a2[j])==counter.end() || counter[a2[j]]==0){
+          return "No";
+      }
+      counter[a2[j]]--;
+  }
+  
+  return "Yes";
+    
+}
