@@ -1,0 +1,31 @@
+void threeWayPartition(vector<int>& array,int a, int b)
+    {
+        // code here 
+        int n=array.size();
+        int low=0;
+        int high=n-1;
+        
+        while(low<=high && array[low]<a){
+            low++;
+        }
+        
+        while(low<=high && array[high]>b){
+            high--;
+        }
+        
+        int i=low;
+        
+        while(i<=high){
+            if(array[i]<a){
+                swap(array[i],array[low]);
+                low++;
+                i++;
+            }else if(array[i]>b){
+                swap(array[i],array[high]);
+                high--;
+            }else{
+                i++;
+            }
+        }
+    }
+};
