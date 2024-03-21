@@ -1,0 +1,13 @@
+int find_median(vector<int> v)
+		{
+		   sort(v.begin(), v.end());
+        int n = v.size();
+        int mid = n / 2;
+        
+        if (n % 2 != 0) { // Odd-sized vector
+            return v[mid];
+        } else { // Even-sized vector
+            return (v[mid - 1] + v[mid]) / 2;
+        }
+		}
+};
