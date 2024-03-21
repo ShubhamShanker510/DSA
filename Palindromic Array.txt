@@ -1,0 +1,27 @@
+int PalinArray(int a[], int n)
+    {
+    	// code here
+        int count = 0;
+        
+        for (int i = 0; i < n; i++) {
+            int temp = a[i];
+            int reversed = 0;
+            
+            while (temp != 0) {
+                int digit = temp % 10;
+                reversed = reversed * 10 + digit;
+                temp /= 10;
+            }
+            
+            if (reversed == a[i]) {
+                count++;
+            }
+        }
+        
+        if (count == n) {
+            return 1;
+        }
+        
+        return 0;
+    }
+};
