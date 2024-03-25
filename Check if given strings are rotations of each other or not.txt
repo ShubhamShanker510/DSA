@@ -1,0 +1,17 @@
+bool stringrotation(string s1,string s2){
+	
+	if(s1.length()!=s2.length()) return false;
+	
+	for(int i=0;i<s1.length();i++){
+		bool rotationfound=true;
+		for(int j=0;j<s1.length();j++){
+			if(s1[(i+j)%s1.length()]!=s2[j]){
+				rotationfound=false;
+				break;
+			}
+		}
+		
+		if(rotationfound) return true;
+	}
+	return false;
+}
