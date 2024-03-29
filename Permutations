@@ -1,0 +1,31 @@
+    void backtrack(vector<vector<int>>& result, vector<int>& temp, vector<int>& nums, std::unordered_set<int>& visited) {
+        if (temp.size() == nums.size()) {
+            result.push_back(temp);
+            return;
+        }
+
+        for (int number : nums) {
+            // Skip if the number has been visited already
+            if (visited.find(number) != visited.end()) continue;
+
+            // Add the number to the list
+            temp.push_back(number);
+            visited.insert(number); // Mark number as visited
+
+            // Go back to try other elements
+            backtrack(result, temp, nums, visited);
+
+            // Remove the last added element and mark it as not visited
+            temp.pop_back();
+            visited.erase(number);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> temp;
+        unordered_set<int> visited;
+
+        backtrack(result,temp,nums,visited);
+
+        return result;
+    }
