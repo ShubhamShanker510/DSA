@@ -1,0 +1,29 @@
+    void rotate(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        
+        //taking care of every ring
+        for(int i=0;i<(n+1)/2;i++){
+
+            // taking care of element in a ring
+            for(int j=0;j<n/2;j++){
+                
+                //4 ways swap
+                //storing bottom left in temp
+                int temp=matrix[n-1-j][i];
+
+                //bottom left=bottom right
+                matrix[n-1-j][i]=matrix[n-1-i][n-j-1];
+
+                //bottom right=top right
+                matrix[n-1-i][n-j-1]=matrix[j][n-1-i];
+
+                //top right=top left
+                matrix[j][n-1-i]=matrix[i][j];
+
+                //top left=temp
+                matrix[i][j]=temp;
+            }
+
+        }
+        
+    }
