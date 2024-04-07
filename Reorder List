@@ -1,0 +1,46 @@
+ListNode* reverse(ListNode* head) {
+    ListNode* previous = nullptr;
+    ListNode* current = head;
+    ListNode* next = nullptr;
+
+    while (current) {
+        next = current->next;
+        current->next = previous;
+        previous = current;
+        current = next;
+    }
+
+    return previous;
+}
+ 
+ListNode* Solution::reorderList(ListNode* A) {
+    if (!A || !A->next)
+        return A;
+
+    // Finding middle
+    ListNode* slow = A;
+    ListNode* fast = A->next;
+
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    // Reverse second half of the linked list
+    ListNode* B = reverse(slow->next);
+    slow->next = nullptr;
+    ListNode* C = A;
+
+    // Merging both lists
+    while (B) {
+        ListNode* temp1 = C->next;
+        ListNode* temp2 = B->next;
+
+        C->next = B;
+        B->next = temp1;
+        C = temp1;
+        B = temp2;
+    }
+
+    return A;
+}
