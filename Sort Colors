@@ -1,0 +1,42 @@
+ void merge(vector<int>& arr, vector<int>& temp, int low, int mid, int high) {
+        int i = low;
+        int j = mid + 1;
+        int y = 0;
+
+        // updating temp while comparing i and j
+        while (i <= mid && j <= high) {
+            if (arr[i] <= arr[j]) {
+                temp[y++] = arr[i++];
+            } else {
+                temp[y++] = arr[j++];
+            }
+        }
+
+        // inserting all of the rest elements
+        while (i <= mid) {
+            temp[y++] = arr[i++];
+        }
+
+        while (j <= high) {
+            temp[y++] = arr[j++];
+        }
+
+        // updating array after temp is sorted;
+        for (int k = low, x = 0; k <= high; k++, x++) {
+            arr[k] = temp[x];
+        }
+    }
+
+    void mergesort(vector<int>& arr, vector<int>& temp, int low, int high) {
+        if (low < high) { 
+            int mid = low + (high - low) / 2;
+            mergesort(arr, temp, low, mid);
+            mergesort(arr, temp, mid + 1, high);
+            merge(arr, temp, low, mid, high);
+        }
+    }
+
+    void sortColors(vector<int>& nums) {
+        vector<int> temp(nums.size());
+        mergesort(nums, temp, 0, nums.size() - 1);
+    }
