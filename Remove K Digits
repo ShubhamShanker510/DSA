@@ -1,0 +1,38 @@
+string removeKdigits(string num, int k) {
+      int n = num.size();
+        if (n <= k) return "0";
+
+        // Construct the result string directly
+        string result;
+        int len = 0;
+
+        for (char digit : num) {
+            while (len > 0 && k > 0 && result[len - 1] > digit) {
+                // Remove digits from the result string if they are larger than the current digit
+                result.pop_back();
+                len--;
+                k--;
+            }
+
+            // Add the current digit to the result string
+            result.push_back(digit);
+            len++;
+        }
+
+        // Handle the case where k is still greater than 0
+        while (k > 0 && len > 0) {
+            result.pop_back();
+            len--;
+            k--;
+        }
+
+        // Remove leading zeros from the result string
+        int i = 0;
+        while (i < len && result[i] == '0') {
+            i++;
+        }
+
+        // Return the final result string
+        return (i == len) ? "0" : result.substr(i);
+        
+    }
