@@ -1,0 +1,31 @@
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head || !head->next) return head;
+    
+    unordered_map<int, int> frequency; 
+    ListNode* current = head;
+    
+    // Counting frequency of every number
+    while (current) {
+        frequency[current->val]++;
+        current = current->next;
+    }
+    
+    ListNode dummy(0);
+    dummy.next = head;
+    ListNode* prev = &dummy;
+    current = head;
+    
+    
+    while (current) {
+        if (frequency[current->val] > 1) { 
+            prev->next = current->next;
+            delete current;
+            current = prev->next;
+        } else {
+            prev = current;
+            current = current->next;
+        }
+    }
+    return dummy.next;
+    }
+    
