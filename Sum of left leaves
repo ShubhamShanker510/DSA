@@ -1,0 +1,11 @@
+ int sumOfLeftLeaves(TreeNode* root) {
+
+       if(!root) return 0;
+        int leftsum=0;
+
+        if(root->left and !root->left->left and !root->left->right) leftsum=root->left->val;
+        
+    return leftsum+sumOfLeftLeaves(root->left)+sumOfLeftLeaves(root->right);  
+        
+        
+    }
