@@ -1,0 +1,17 @@
+  int sumNumbers(TreeNode* root) {
+        return leafsum(root, 0);
+    }
+
+    int leafsum(TreeNode* root, int cNum) {
+        if (root == nullptr) return 0;
+
+        cNum = cNum * 10 + root->val;
+        if (root->left == nullptr && root->right == nullptr) {
+            return cNum;
+        }
+
+        int leftSum = leafsum(root->left, cNum);
+        int rightSum = leafsum(root->right, cNum);
+
+        return leftSum + rightSum;
+    }
