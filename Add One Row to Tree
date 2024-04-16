@@ -1,0 +1,29 @@
+ void dfs(TreeNode* root, int curDepth, int val, int depth) {
+        if (root == nullptr) return;
+
+        if (curDepth == depth - 1) {
+            TreeNode* newLeft = new TreeNode(val);
+            newLeft->left = root->left;
+            root->left = newLeft;
+
+            TreeNode* newRight = new TreeNode(val);
+            newRight->right = root->right;
+            root->right = newRight;
+            return;
+        }
+
+        dfs(root->left, curDepth + 1, val, depth);
+        dfs(root->right, curDepth + 1, val, depth);
+    }
+
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+        if (depth == 1) {
+            TreeNode* newRoot = new TreeNode(val);
+            newRoot->left = root;
+            return newRoot;
+        }
+
+        dfs(root, 1, val, depth);
+
+        return root;
+    }
