@@ -1,0 +1,25 @@
+  string smalleststr;
+    
+    void pre(TreeNode* root, string curString){
+        if(root==NULL) return;
+        
+        char ch=root->val+'a';
+        curString = ch + curString;
+
+        if(root->left==NULL && root->right==NULL){
+            if(smalleststr.empty()){
+                smalleststr = curString;
+            }
+            else if(smalleststr > curString){
+                smalleststr = curString;
+            }
+            return;
+        }
+        pre(root->left, curString);
+        pre(root->right, curString);
+    }
+    
+    string smallestFromLeaf(TreeNode* root) {
+        pre(root, "");
+        return smalleststr;
+    }
