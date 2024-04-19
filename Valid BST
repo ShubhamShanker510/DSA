@@ -1,0 +1,11 @@
+bool solve(TreeNode* root,TreeNode* minNode,TreeNode* maxNode){
+        if(root==nullptr) return true;
+
+        if((minNode && root->val<=minNode->val) || maxNode && root->val>=maxNode->val) return false;
+
+        return solve(root->left,minNode,root) && solve(root->right,root,maxNode);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return solve(root,nullptr,nullptr);
+    }
