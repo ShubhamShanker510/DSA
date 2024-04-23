@@ -1,0 +1,20 @@
+bool help(int start, string A, set<string>& B, vector<int>& dp) {
+    if (start == A.size()) return true;
+    
+    if (dp[start] != -1) return dp[start];
+    
+    for (int end = start + 1; end <= A.size(); end++) {
+        string word = A.substr(start, end - start);
+        if (B.find(word) != B.end()) {
+            if (help(end, A, B, dp)) 
+                return dp[start] = 1;
+        }
+    }
+    return dp[start] = 0;
+}
+
+int Solution::wordBreak(string A, vector<string>& B) {
+    set<string> st(B.begin(), B.end());
+    vector<int> dp(A.size(), -1);
+    return help(0, A, st, dp);
+}
