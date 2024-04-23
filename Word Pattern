@@ -1,0 +1,44 @@
+bool wordPattern(string pattern, string s) {
+        vector<string> words;
+        string temp = "";
+
+        // Split the string s into words
+        for (char c : s) {
+            if (c == ' ') {
+                words.push_back(temp);
+                temp = "";
+            } else {
+                temp += c;
+            }
+        }
+        words.push_back(temp);
+
+        // Check if the number of words matches the pattern size
+        if (words.size() != pattern.size()) 
+            return false;
+
+        unordered_map<char, string> charToWord;
+        unordered_set<string> uniqueWords;
+
+        for (int i = 0; i < pattern.size(); ++i) {
+            char c = pattern[i];
+            string word = words[i];
+
+            // Check if the pattern character is already mapped
+            if (charToWord.find(c) != charToWord.end()) {
+                // If it is, the mapped word should match the current word
+                if (charToWord[c] != word)
+                    return false;
+            } else {
+                // If it's not mapped, check if the current word is already used
+                if (uniqueWords.count(word) > 0)
+                    return false;
+
+                // Map the pattern character to the current word
+                charToWord[c] = word;
+                uniqueWords.insert(word);
+            }
+        }
+
+        return true;
+    }
