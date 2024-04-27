@@ -1,0 +1,10 @@
+  vector<int> nums;
+    NumArray(vector<int>& nums) {
+        this->nums=nums;
+    }
+    
+    int sumRange(int left, int right) {
+        
+        //This function returns the sum of all the values lying in a range between [first, last) with the variable sum.
+        return accumulate(nums.begin()+left,nums.begin()+right+1,0);
+    }
