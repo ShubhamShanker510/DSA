@@ -1,0 +1,33 @@
+ ListNode* removeNodes(ListNode* head) {
+        ListNode* prev=NULL;
+        ListNode* curr=head;
+
+        while(curr!=NULL){
+            ListNode* next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+
+       ListNode* result=new ListNode(prev->val);
+       int maxVal=result->val;
+       curr=prev->next;
+       while(curr!=NULL){
+        if(curr->val<maxVal){
+            curr=curr->next;
+            continue;
+        }
+        else{
+            ListNode* node=new ListNode(curr->val);
+            node->next=result;
+            result=node;
+            maxVal=node->val;
+            curr=curr->next;
+        }
+       }
+
+       return result;
+
+
+        
+    }
