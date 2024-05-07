@@ -1,0 +1,42 @@
+ListNode* reverseList(ListNode* head) {
+        ListNode* current = head;
+        ListNode* prev = nullptr;
+        ListNode* next = nullptr;
+
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+
+        return prev;
+    }
+
+
+    ListNode* doubleIt(ListNode* head) {
+         ListNode* reversedList = reverseList(head);
+
+        int carry = 0;
+        ListNode* current = reversedList;
+        ListNode* result = nullptr;
+        ListNode* prev = nullptr;
+
+        while (current != nullptr || carry != 0) {
+            int newVal = (current ? current->val : 0) * 2 + carry;
+            carry = newVal / 10;
+            newVal %= 10;
+            ListNode* newNode = new ListNode(newVal);
+            if (!result) {
+                result = newNode;
+            } else {
+                prev->next = newNode;
+            }
+            prev = newNode;
+            if (current) current = current->next;
+        }
+
+        result = reverseList(result);
+
+        return result;
+    }
