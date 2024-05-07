@@ -1,0 +1,23 @@
+unordered_map<string,bool>m;
+
+bool fnc(string A, string B, int n) {
+        if (A == B) return m[A + "#" + B] = true; // using # to make it unique
+        if (A.length() == 1) return false;
+
+        if (m.find(A + "#" + B) != m.end()) return m[A + "#" + B];
+
+        for (int k = 1; k <= n - 1; k++) {
+            bool cond1 = (fnc(A.substr(0, k), B.substr(n - k), k) && fnc(A.substr(k, n - k), B.substr(0, n - k), n - k));
+            bool cond2 = (fnc(A.substr(0, k), B.substr(0, k), k) && fnc(A.substr(k, n - k), B.substr(k, n - k), n - k));
+
+            if (cond1 || cond2) return m[A + "#" + B] = true;
+        }
+
+        return m[A + "#" + B] = false;
+    }
+
+int Solution::isScramble(const string A, const string B) {
+    if(A.length()!=B.length()) return false;
+    int n=A.size();
+    return fnc(A,B, n);
+}
