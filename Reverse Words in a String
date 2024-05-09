@@ -1,0 +1,35 @@
+ string reverseWords(string s) {
+         stack<char> st;
+        string ans = "";
+        bool wordStarted = false;
+
+  
+        for (int i = s.size() - 1; i >= 0; i--) {
+            char ch = s[i];
+
+            if (ch != ' ') {
+                st.push(ch);
+                wordStarted = true; 
+            } else if (wordStarted) {
+                while (!st.empty()) {
+                    ans += st.top();
+                    st.pop();
+                }
+                ans += ' '; 
+                wordStarted = false;
+            }
+        }
+
+    
+        while (!st.empty()) {
+            ans += st.top();
+            st.pop();
+        }
+
+     
+        if (!ans.empty() && ans.back() == ' ') {
+            ans.pop_back();
+        }
+
+        return ans;
+    }
