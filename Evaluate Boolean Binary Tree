@@ -1,0 +1,25 @@
+ bool evaluateTree(TreeNode* root) {
+       if(root->left==NULL && root->right==NULL){
+        return(root->val)==1?true:false;
+       }
+
+       bool left=false;
+       bool right=false;
+
+       if(root->left!=NULL){
+        left=evaluateTree(root->left);
+       }
+       if(root->right!=NULL){
+        right=evaluateTree(root->right);
+       }
+       bool res=false;
+
+       if(root->val==2){
+        res=(left|| right)?true:false;
+       }
+       else if(root->val==3){
+        res=(left && right)?true:false;
+       }
+       return res;
+        
+    }
