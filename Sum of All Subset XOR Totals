@@ -1,0 +1,12 @@
+int findXorTotal(vector<int>& nums,int index,int currentXor){
+    //base case
+        if(index==nums.size()) return currentXor;
+        int pick=findXorTotal(nums,index+1,currentXor ^ nums[index]);
+        int noPick=findXorTotal(nums,index+1,currentXor);
+        return pick+noPick;
+
+    }
+    int subsetXORSum(vector<int>& nums) {
+      return findXorTotal(nums,0,0);
+        
+    }
