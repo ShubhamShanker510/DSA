@@ -1,0 +1,23 @@
+static bool customComparator(const string &a, const string &b) {
+        return a + b > b + a;
+    }
+
+    string largestNumber(vector<int>& nums) {
+        vector<string> solve;
+
+        for(int x : nums) {
+            solve.push_back(to_string(x));
+        }
+
+        sort(solve.begin(), solve.end(), customComparator);
+
+        string ans;
+        for (const string &s : solve) {
+            ans += s;
+        }
+
+        if (ans[0] == '0') {
+            return "0";
+        }
+
+        re
