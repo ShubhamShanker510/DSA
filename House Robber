@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        return rob_helper(nums,nums.size()-1);
+    }
+
+private:
+    unordered_map<int,int> d;
+
+    int rob_helper(vector<int>& nums,int n){
+        if(n==0){
+            return nums[n];
+        }
+
+        if(n<0){
+            return 0;
+        }
+
+        if(d.find(n)!=d.end()){
+            return d[n];
+        }
+
+        d[n]=max(nums[n]+rob_helper(nums,n-2),rob_helper(nums,n-1));
+        return d[n];
+    }
+};
