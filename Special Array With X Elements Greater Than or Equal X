@@ -1,0 +1,25 @@
+ int binarySearch(vector<int>& nums,int x){
+        int start=0;
+        int end=nums.size()-1;
+
+        while(start<=end){
+            int mid=start+(end-start)/2;
+
+            if (nums[mid] >= x) {
+                end = mid - 1;
+             } else {
+                start = mid + 1;
+             }
+        }
+
+        return nums.size()-start;
+    }
+    int specialArray(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        for(int x=1;x<=nums.size();x++){
+            int count=binarySearch(nums,x);
+
+            if(count==x) return x;
+        }
+        return -1;
+    }
