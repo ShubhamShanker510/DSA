@@ -1,0 +1,42 @@
+ Node* copyRandomList(Node* head) {
+        Node* current=head;
+        Node* next=NULL;
+
+        while(current!=NULL){
+            next=current->next;
+
+            Node* copy =new Node(current->val);
+            current->next=copy;
+            copy->next=next;
+            current=next;
+        }
+
+        //joining random
+        current=head;
+        while(current!=NULL){
+            if(current->random!=NULL){
+                current->next->random=current->random->next;
+            }
+            current=current->next->next;
+        }
+
+        //seprate orignal and copied linked list
+        current=head;
+        Node* dummy=new Node(0);
+        Node* copy=NULL;
+        Node* copyTail=dummy;
+
+        while(current!=NULL){
+            next=current->next->next;
+           
+            copy=current->next;
+            copyTail->next=copy;
+            copyTail=copy;
+
+            current->next=next;
+            current=next;
+
+        }
+
+        return dummy->next;
+    }
