@@ -1,0 +1,25 @@
+vector<int> dp;
+
+    int nways(int i, string s) {
+        if (i >= s.size()) {
+            return 1;
+        } else if (s[i] == '0') {
+            return 0;
+        } else if (dp[i] != -1) {
+            return dp[i];
+        }
+        
+        int ways = nways(i + 1, s);
+        if (i < s.size() - 1 && (s[i] == '1' || (s[i] == '2' && s[i + 1] >= '0' && s[i + 1] <= '6'))) {
+            ways += nways(i + 2, s);
+        }
+        
+        dp[i] = ways;
+        return dp[i];
+    }
+
+    int numDecodings(string s) {
+        if (s.empty()) return 0;
+        dp.resize(s.size(), -1);
+        return nways(0, s);
+    }
