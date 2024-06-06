@@ -1,0 +1,52 @@
+bool isNStraightHand(vector<int>& hand, int groupSize) {
+  int n = hand.size();
+        
+        if (n % groupSize != 0) {
+            return false;
+        }
+        
+      
+        sort(hand.begin(), hand.end());
+        
+        
+        map<int, int> cardCount;
+        for (int card : hand) {
+            cardCount[card]++;
+        }
+        
+       
+        queue<int> q; 
+        
+        for (const auto& [card, count] : cardCount) {
+            if (cardCount[card] > 0) {
+                q.push(card);
+            }
+        }
+        
+        while (!q.empty()) {
+            int start = q.front();
+            q.pop();
+            
+            if (cardCount[start] == 0) {
+                continue; 
+            }
+            
+            int cardsNeeded = cardCount[start];
+            
+            for (int i = 0; i < groupSize; ++i) {
+                int currentCard = start + i;
+                
+                if (cardCount[currentCard] < cardsNeeded) {
+                    return false;
+                }
+                
+                cardCount[currentCard] -= cardsNeeded;
+                
+                if (cardCount[currentCard] > 0 && i > 0) {
+                    q.push(currentCard);
+                }
+            }
+        }
+        
+        return true;
+    }
