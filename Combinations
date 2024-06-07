@@ -1,0 +1,20 @@
+  void f(int i,int n,int k,vector<int>& solve,vector<vector<int>>& result){
+        if(solve.size()==k){
+            result.push_back(solve);
+            return;
+        }
+
+        for(int j=i;j<=n;j++){
+            solve.push_back(j);
+            f(j+1,n,k,solve,result);
+            solve.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> solve;
+        vector<vector<int>> result;
+        f(1,n,k,solve,result);
+
+        return result;
+
+    }
