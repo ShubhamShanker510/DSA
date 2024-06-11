@@ -1,0 +1,47 @@
+ bool isValidNeighbor(int x, int y, vector<vector<int>>& board) {
+        return (x >= 0 && x < board.size() && y >= 0 && y < board[0].size());
+    }
+    
+    void gameOfLife(vector<vector<int>>& board) {
+        vector<int> dx = {0, 0, 1, 1, 1, -1, -1, -1};
+        vector<int> dy = {1, -1, 1, -1, 0, 0, -1, 1};
+
+        int rows = board.size();
+        int cols = board[0].size();
+
+        // First pass: mark the board with new states
+        for (int row = 0; row < rows; ++row) {
+            for (int col = 0; col < cols; ++col) {
+                int count_live_neighbors = 0;
+
+                // Count live neighbors
+                for (int i = 0; i < 8; ++i) {
+                    int curr_x = row + dx[i];
+                    int curr_y = col + dy[i];
+
+                    if (isValidNeighbor(curr_x, curr_y, board) && abs(board[curr_x][curr_y]) == 1) {
+                        count_live_neighbors++;
+                    }
+                }
+
+                // Mark cells with new states
+                if (board[row][col] == 1 && (count_live_neighbors < 2 || count_live_neighbors > 3)) {
+                    board[row][col] = -1;  // -1 indicates the cell was live but now dead
+                }
+                if (board[row][col] == 0 && count_live_neighbors == 3) {
+                    board[row][col] = 2;  // 2 indicates the cell was dead but now live
+                }
+            }
+        }
+
+        // Second pass: update the board to the new states
+        for (int row = 0; row < rows; ++row) {
+            for (int col = 0; col < cols; ++col) {
+                if (board[row][col] == -1) {
+                    board[row][col] = 0;  // Dead cell
+                } else if (board[row][col] == 2) {
+                    board[row][col] = 1;  // Live cell
+                }
+            }
+        }
+    }
