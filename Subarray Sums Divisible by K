@@ -1,24 +1,24 @@
-  int subarraysDivByK(vector<int>& nums, int k) {
-        unordered_map<int, int> map;
-        map[0] = 1;  
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+       HashMap<Integer, Integer> freq=new HashMap<>();
+       int preSum=0;
+       freq.put(0,1);
+       int count=0;
+       // prefix Sum
 
-    int count = 0;
-    int sum = 0;
+       for(int i=0;i<nums.length;i++){
+         preSum+=nums[i];
+         int mod=preSum%k;
+         mod=(mod+k)%k;
 
-    for (int i = 0; i < nums.size(); i++) {
-        sum += nums[i];
-        int remainder = sum % k;
+         if(freq.containsKey(mod)){
+            count += freq.get(mod);
+            freq.put(mod, freq.get(mod) + 1);
+         }else{
+            freq.put(mod,1);
+         }
+       }
 
-        if (remainder < 0) {
-            remainder += k;
-        }
-
-        if (map.find(remainder) != map.end()) {
-            count += map[remainder];
-        }
-
-        map[remainder]++;
+       return count;
     }
-
-    return count;
-    }
+}
